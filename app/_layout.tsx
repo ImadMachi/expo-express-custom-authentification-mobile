@@ -1,5 +1,7 @@
 import { SplashScreen, Stack } from "expo-router";
 import { useFonts } from "expo-font";
+import "intl-pluralrules";
+import "@locales";
 
 export default function Layout() {
 	const [fontsLoaded] = useFonts({

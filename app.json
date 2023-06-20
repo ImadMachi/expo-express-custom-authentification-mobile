@@ -4,7 +4,18 @@
     "web": {
       "bundler": "metro"
     },
-    "name": "react_native_jobs",
-    "slug": "react_native_jobs"
+    "name": "club-mobile-app",
+    "slug": "club-mobile-app",
+    "extra": {
+      "router": {
+        "baseUrl": "http://localhost:3000"
+      },
+      "eas": {
+        "projectId": "1a7ff4d4-87bc-4132-8465-9cf08937728a"
+      }
+    },
+    "android": {
+      "package": "com.imadmachi.clubmobileapp"
+    }
   }
 }

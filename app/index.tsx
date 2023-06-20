@@ -1,22 +1,18 @@
 import { Stack } from "expo-router";
-import { SafeAreaView, ScrollView, Text, View } from "react-native";
-import {
-	COLORS,
-	RADIUS,
-	SHADOW,
-	SPACING,
-	bold,
-	boldItalic,
-	light,
-	ligthItalic,
-	medium,
-	mediumItalic,
-	regular,
-	regularItalic,
-} from "@/constants/theme";
+import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { COLORS, FONTS, RADIUS, SHADOWS, SPACING } from "@constants/theme";
 import { AntDesign } from "@expo/vector-icons";
+import { useTranslation } from "react-i18next";
+import { useState } from "react";
+
+const lngs = {
+	en: { nativeName: "English" },
+	de: { nativeName: "Deutsch" },
+};
 
 const Home = () => {
+	const { t, i18n } = useTranslation();
+
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
 			<Stack.Screen
@@ -29,19 +25,37 @@ const Home = () => {
 				}}
 			/>
 			<ScrollView style={{ flex: 1, padding: SPACING.lg }}>
-				<Text style={{ fontFamily: light, color: COLORS.green900 }}>Home</Text>
-				<Text style={{ fontFamily: regular }}>Home</Text>
-				<Text style={{ fontFamily: medium }}>Home</Text>
-				<Text style={{ fontFamily: bold }}>Home</Text>
+				<View>
+					{(Object.keys(lngs) as Array<keyof typeof lngs>).map((lng) => (
+						<TouchableOpacity
+							key={lng}
+							onPress={() => {
+								i18n.changeLanguage(lng);
+							}}
+						>
+							<Text style={{ fontFamily: i18n.resolvedLanguage === lng ? FONTS.bold : FONTS.regular }}>
+								{lngs[lng].nativeName}
+							</Text>
+						</TouchableOpacity>
+					))}
+				</View>
 
-				<Text style={{ fontFamily: ligthItalic }}>Home</Text>
-				<Text style={{ fontFamily: regularItalic }}>Home</Text>
-				<Text style={{ fontFamily: mediumItalic }}>Home</Text>
-				<Text style={{ fontFamily: boldItalic }}>Home</Text>
+				{/* <Text>{t("welcome")}</Text> */}
 
-				<View style={[{ width: SPACING["9xl"], height: SPACING["6xl"], borderRadius: RADIUS.sm }, SHADOW.sm]}></View>
-				<View style={[{ width: SPACING["1/2"], height: 70, borderRadius: RADIUS.md }, SHADOW.md]}></View>
-				<View style={[{ width: "100%", height: 400, borderRadius: RADIUS.lg }, SHADOW.lg]}></View>
+				<Text>{t("date", { date: new Date() })}</Text>
+				{/* <Text style={{ fontFamily: FONTS.light, color: COLORS.green900 }}>Home</Text>
+				<Text style={{ fontFamily: FONTS.regular }}>Home</Text>
+				<Text style={{ fontFamily: FONTS.medium }}>Home</Text>
+				<Text style={{ fontFamily: FONTS.bold }}>Home</Text>
+
+				<Text style={{ fontFamily: FONTS.ligthItalic }}>Home</Text>
+				<Text style={{ fontFamily: FONTS.regularItalic }}>Home</Text>
+				<Text style={{ fontFamily: FONTS.mediumItalic }}>Home</Text>
+				<Text style={{ fontFamily: FONTS.boldItalic }}>Home</Text>
+
+				<View style={[{ width: SPACING["9xl"], height: SPACING["6xl"], borderRadius: RADIUS.sm }, SHADOWS.sm]}></View>
+				<View style={[{ width: SPACING["1/2"], height: 70, borderRadius: RADIUS.md }, SHADOWS.md]}></View>
+				<View style={[{ width: "100%", height: 400, borderRadius: RADIUS.lg }, SHADOWS.lg]}></View> */}
 			</ScrollView>
 		</SafeAreaView>
 	);

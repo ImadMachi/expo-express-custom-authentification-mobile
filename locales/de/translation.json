@@ -1,0 +1,6 @@
+{
+	"welcome": "Willkommen zu React und react-i18next",
+	"counter_one": "Die Sprache wurde erst ein mal gewechselt",
+	"counter_other": "Die Sprache wurde {{count}} mal gewechselt",
+	"date": "{{date, DATE_HUGE}}"
+}

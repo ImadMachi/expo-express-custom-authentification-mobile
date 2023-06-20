@@ -74,32 +74,38 @@ export const COLORS = {
 /***************************************************************/
 /******************* Typography ********************************/
 /***************************************************************/
-export const light = "RobotoLight";
-export const regular = "RobotoRegular";
-export const medium = "RobotoMedium";
-export const bold = "RobotoBold";
-export const ligthItalic = "RobotoLightItalic";
-export const regularItalic = "RobotoRegularItalic";
-export const mediumItalic = "RobotoMediumItalic";
-export const boldItalic = "RobotoBoldItalic";
+export const FONTS = {
+	light: "RobotoLight",
+	regular: "RobotoRegular",
+	medium: "RobotoMedium",
+	bold: "RobotoBold",
+	ligthItalic: "RobotoLightItalic",
+	regularItalic: "RobotoRegularItalic",
+	mediumItalic: "RobotoMediumItalic",
+	boldItalic: "RobotoBoldItalic",
+};
 
-export const textXs = 12;
-export const textSm = 14;
-export const textBase = 16;
-export const textLg = 18;
-export const textXl = 20;
-export const text2xl = 24;
-export const text3xl = 30;
-export const text4xl = 36;
+export const TEXTS = {
+	xs: 12,
+	sm: 14,
+	md: 16,
+	lg: 18,
+	xl: 20,
+	"2xl": 24,
+	"3xl": 30,
+	"4xl": 36,
+};
 
-export const lineHeighXs = 16;
-export const lineHeighSm = 18;
-export const lineHeighBase = 20;
-export const lineHeighLg = 22;
-export const lineHeighXl = 24;
-export const lineHeigh2xl = 30;
-export const lineHeigh3xl = 36;
-export const lineHeigh4xl = 42;
+export const LINE_HEIGHTS = {
+	xs: 16,
+	sm: 18,
+	md: 20,
+	lg: 22,
+	xl: 24,
+	"2xl": 30,
+	"3xl": 36,
+	"4xl": 42,
+};
 
 /***************************************************************/
 /******************* Spacing ***********************************/
@@ -107,7 +113,7 @@ export const lineHeigh4xl = 42;
 export const SPACING = {
 	xs: 4,
 	sm: 8,
-	base: 12,
+	md: 12,
 	lg: 16,
 	xl: 20,
 	"2xl": 24,
@@ -132,11 +138,8 @@ export const SPACING = {
 /***************************************************************/
 
 export const RADIUS = {
-	/** Small radius size */
 	sm: 4,
-	/** Medium radius size */
 	md: 10,
-	/** Large radius size */
 	lg: 16,
 };
 
@@ -144,7 +147,7 @@ export const RADIUS = {
 /******************* Shadow ************************************/
 /***************************************************************/
 
-export const SHADOW = {
+export const SHADOWS = {
 	sm: {
 		shadowColor: COLORS.slate300,
 		shadowOffset: {

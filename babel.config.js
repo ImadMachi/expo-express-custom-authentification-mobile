@@ -11,7 +11,10 @@ module.exports = function (api) {
 				{
 					root: [__dirname],
 					alias: {
-						"@": "./",
+						"@assets": "./assets",
+						"@components": "./components",
+						"@constants": "./constants",
+						"@locales": "./locales",
 					},
 				},
 			],
