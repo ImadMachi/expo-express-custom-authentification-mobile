@@ -1,9 +1,8 @@
-import { Stack } from "expo-router";
-import { SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Link, Stack } from "expo-router";
+import { Button, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { COLORS, FONTS, RADIUS, SHADOWS, SPACING } from "@constants/theme";
 import { AntDesign } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
 
 const lngs = {
 	en: { nativeName: "English" },
@@ -11,7 +10,7 @@ const lngs = {
 };
 
 const Home = () => {
-	const { t, i18n } = useTranslation();
+	// const { t, i18n } = useTranslation();
 
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
@@ -19,13 +18,15 @@ const Home = () => {
 				options={{
 					headerStyle: {},
 					headerShadowVisible: false,
+					headerBackVisible: false,
 					headerLeft: () => <AntDesign name="home" size={24} color={COLORS.blue900} />,
 					// headerRight: () => <Text>Log</Text>,
 					headerTitle: "home",
 				}}
 			/>
 			<ScrollView style={{ flex: 1, padding: SPACING.lg }}>
-				<View>
+				<Link href="/login">Go to login page</Link>
+				{/* <View>
 					{(Object.keys(lngs) as Array<keyof typeof lngs>).map((lng) => (
 						<TouchableOpacity
 							key={lng}
@@ -38,11 +39,11 @@ const Home = () => {
 							</Text>
 						</TouchableOpacity>
 					))}
-				</View>
+				</View> */}
 
 				{/* <Text>{t("welcome")}</Text> */}
 
-				<Text>{t("date", { date: new Date() })}</Text>
+				{/* <Text>{t("date", { date: new Date() })}</Text> */}
 				{/* <Text style={{ fontFamily: FONTS.light, color: COLORS.green900 }}>Home</Text>
 				<Text style={{ fontFamily: FONTS.regular }}>Home</Text>
 				<Text style={{ fontFamily: FONTS.medium }}>Home</Text>

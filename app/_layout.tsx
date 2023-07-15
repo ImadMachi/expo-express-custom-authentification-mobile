@@ -2,8 +2,23 @@ import { SplashScreen, Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import "intl-pluralrules";
 import "@locales";
+import { AppStateStatus, Platform } from "react-native";
+import { QueryClient, QueryClientProvider, focusManager } from "@tanstack/react-query";
+import useOnlineManager from "@hooks/useOnlineManager";
+import useAppState from "@hooks/useAppState";
+
+function onAppStateChange(status: AppStateStatus) {
+	if (Platform.OS !== "web") {
+		focusManager.setFocused(status === "active");
+	}
+}
+
+const queryClient = new QueryClient();
 
 export default function Layout() {
+	useOnlineManager();
+	useAppState(onAppStateChange);
+
 	const [fontsLoaded] = useFonts({
 		// RobotoThin: require("../assets/fonts/Roboto-Thin.ttf"),
 		RobotoLight: require("../assets/fonts/Roboto-Light.ttf"),
@@ -21,8 +36,12 @@ export default function Layout() {
 	});
 
 	if (!fontsLoaded) {
-		return <SplashScreen />;
+		return SplashScreen.preventAutoHideAsync();
 	}
 
-	return <Stack />;
+	return (
+		<QueryClientProvider client={queryClient}>
+			<Stack />
+		</QueryClientProvider>
+	);
 }

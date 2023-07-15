@@ -5,12 +5,17 @@
 		"forceConsistentCasingInFileNames": true,
 		"incremental": true,
 		"noUnusedLocals": true,
+		"isolatedModules": true,
 		"baseUrl": ".",
 		"paths": {
 			"@assets/*": ["./assets/*"],
 			"@components/*": ["./components/*"],
 			"@constants/*": ["./constants/*"],
-			"@locales/*": ["./locales/*"]
+			"@locales/*": ["./locales/*"],
+			"@features/*": ["./features/*"],
+			"@hooks/*": ["./hooks/*"],
+			"@config/*": ["./config/*"],
+			"@typing/*": ["typing/*"]
 		}
 	}
 }
