@@ -40,7 +40,7 @@ const LoginPage = () => {
 						}}
 					>
 						Don't have an account?{" "}
-						<Link href="/signup" style={{ color: COLORS.blue500 }}>
+						<Link href="/auth/register" style={{ color: COLORS.blue500 }}>
 							Sign up
 						</Link>
 					</Text>

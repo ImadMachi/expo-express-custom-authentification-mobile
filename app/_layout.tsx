@@ -1,11 +1,13 @@
 import { SplashScreen, Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import "intl-pluralrules";
+import { RootSiblingParent } from "react-native-root-siblings";
 import "@locales";
 import { AppStateStatus, Platform } from "react-native";
 import { QueryClient, QueryClientProvider, focusManager } from "@tanstack/react-query";
 import useOnlineManager from "@hooks/useOnlineManager";
 import useAppState from "@hooks/useAppState";
+import { AuthProvider } from "@contexts/auth";
 
 function onAppStateChange(status: AppStateStatus) {
 	if (Platform.OS !== "web") {
@@ -41,7 +43,11 @@ export default function Layout() {
 
 	return (
 		<QueryClientProvider client={queryClient}>
-			<Stack />
+			<AuthProvider>
+				<RootSiblingParent>
+					<Stack />
+				</RootSiblingParent>
+			</AuthProvider>
 		</QueryClientProvider>
 	);
 }

@@ -19,6 +19,7 @@ module.exports = function (api) {
 						"@hooks": "./hooks",
 						"@config": "./config",
 						"@typing": "./typing",
+						"@contexts": "./contexts",
 					},
 				},
 			],

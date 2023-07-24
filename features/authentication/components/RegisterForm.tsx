@@ -1,19 +1,20 @@
 import { Button, StyleSheet, Text, View } from "react-native";
 import TextInput from "./TextInput";
-import { Link } from "expo-router";
 import { COLORS, SPACING, TEXTS } from "@constants/theme";
-import loginUser from "../services/loginUser";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import registerUser from "../services/registerUser";
 
 const schema = yup.object().shape({
+	firstName: yup.string().min(2).required(),
+	lastName: yup.string().min(2).required(),
 	email: yup.string().email().required(),
-	password: yup.string().required(),
+	password: yup.string().min(8).required(),
 });
 
-const LoginForm = () => {
-	const { isLoading, mutate } = loginUser();
+const RegisterForm = () => {
+	const { isLoading, mutate } = registerUser();
 	const {
 		control,
 		handleSubmit,
@@ -32,7 +33,37 @@ const LoginForm = () => {
 			<Controller
 				control={control}
 				render={({ field: { onChange, onBlur, value } }) => (
-					<TextInput placeholder="Email" onBlur={onBlur} onChangeText={onChange} value={value} />
+					<TextInput placeholder="First Name" onBlur={onBlur} onChangeText={onChange} value={value} />
+				)}
+				name="firstName"
+			/>
+			{errors.firstName && <Text style={styles.error}>{errors.firstName.message}</Text>}
+
+			<Controller
+				control={control}
+				render={({ field: { onChange, onBlur, value } }) => (
+					<TextInput
+						placeholder="Last Name"
+						style={{ marginTop: 10 }}
+						onBlur={onBlur}
+						onChangeText={onChange}
+						value={value}
+					/>
+				)}
+				name="lastName"
+			/>
+			{errors.lastName && <Text style={styles.error}>{errors.lastName.message}</Text>}
+
+			<Controller
+				control={control}
+				render={({ field: { onChange, onBlur, value } }) => (
+					<TextInput
+						placeholder="Email"
+						style={{ marginTop: 10 }}
+						onBlur={onBlur}
+						onChangeText={onChange}
+						value={value}
+					/>
 				)}
 				name="email"
 			/>
@@ -53,10 +84,13 @@ const LoginForm = () => {
 				name="password"
 			/>
 			{errors.password && <Text style={styles.error}>{errors.password.message}</Text>}
-			<Link href="/auth/insert-verification-email" style={styles.link}>
-				Forgot password?
-			</Link>
-			<Button title="Log in" onPress={handleSubmit(onSubmit)} color={isLoading ? COLORS.slate300 : COLORS.blue500} />
+			<View style={{ marginTop: 10 }}>
+				<Button
+					title="register"
+					onPress={handleSubmit(onSubmit)}
+					color={isLoading ? COLORS.slate300 : COLORS.blue500}
+				/>
+			</View>
 		</View>
 	);
 };
@@ -95,4 +129,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default LoginForm;
+export default RegisterForm;

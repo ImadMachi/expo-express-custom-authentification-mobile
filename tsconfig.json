@@ -15,7 +15,8 @@
 			"@features/*": ["./features/*"],
 			"@hooks/*": ["./hooks/*"],
 			"@config/*": ["./config/*"],
-			"@typing/*": ["typing/*"]
+			"@typing/*": ["./typing/*"],
+			"@contexts/*": ["./contexts/*"]
 		}
 	}
 }

@@ -1,19 +1,21 @@
 import { Button, StyleSheet, Text, View } from "react-native";
 import TextInput from "./TextInput";
-import { Link } from "expo-router";
 import { COLORS, SPACING, TEXTS } from "@constants/theme";
-import loginUser from "../services/loginUser";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import resetPassword from "../services/resetPassword";
 
 const schema = yup.object().shape({
-	email: yup.string().email().required(),
-	password: yup.string().required(),
+	newPassword: yup.string().min(8).required(),
+	repeatPassword: yup
+		.string()
+		.oneOf([yup.ref("newPassword")], "Passwords must match")
+		.required(),
 });
 
-const LoginForm = () => {
-	const { isLoading, mutate } = loginUser();
+const ResetPasswordForm = () => {
+	const { isLoading, mutate } = resetPassword();
 	const {
 		control,
 		handleSubmit,
@@ -22,7 +24,7 @@ const LoginForm = () => {
 		resolver: yupResolver(schema),
 	});
 	const onSubmit = (data: yup.InferType<typeof schema>) => {
-		mutate(data);
+		mutate({ newPassword: data.newPassword });
 	};
 
 	return (
@@ -32,17 +34,17 @@ const LoginForm = () => {
 			<Controller
 				control={control}
 				render={({ field: { onChange, onBlur, value } }) => (
-					<TextInput placeholder="Email" onBlur={onBlur} onChangeText={onChange} value={value} />
+					<TextInput placeholder="New Password" onBlur={onBlur} onChangeText={onChange} value={value} secureTextEntry />
 				)}
-				name="email"
+				name="newPassword"
 			/>
-			{errors.email && <Text style={styles.error}>{errors.email.message}</Text>}
+			{errors.newPassword && <Text style={styles.error}>{errors.newPassword.message}</Text>}
 
 			<Controller
 				control={control}
 				render={({ field: { onChange, onBlur, value } }) => (
 					<TextInput
-						placeholder="Password"
+						placeholder="Repeat Password"
 						style={{ marginTop: 10 }}
 						onBlur={onBlur}
 						onChangeText={onChange}
@@ -50,13 +52,17 @@ const LoginForm = () => {
 						secureTextEntry
 					/>
 				)}
-				name="password"
+				name="repeatPassword"
 			/>
-			{errors.password && <Text style={styles.error}>{errors.password.message}</Text>}
-			<Link href="/auth/insert-verification-email" style={styles.link}>
-				Forgot password?
-			</Link>
-			<Button title="Log in" onPress={handleSubmit(onSubmit)} color={isLoading ? COLORS.slate300 : COLORS.blue500} />
+			{errors.repeatPassword && <Text style={styles.error}>{errors.repeatPassword.message}</Text>}
+
+			<View style={styles.buttonContainer}>
+				<Button
+					title="Reset Password"
+					onPress={handleSubmit(onSubmit)}
+					color={isLoading ? COLORS.slate300 : COLORS.blue500}
+				/>
+			</View>
 		</View>
 	);
 };
@@ -77,22 +83,9 @@ const styles = StyleSheet.create({
 		fontSize: TEXTS.xs,
 		color: COLORS.red500,
 	},
-	link: {
-		color: COLORS.blue600,
-		fontSize: TEXTS.xs,
-		textAlign: "right",
-		marginBottom: 10,
-	},
-	signupLink: {
-		position: "absolute",
-		bottom: 0,
-		left: 0,
-		right: 0,
-		height: 50,
-		backgroundColor: "gray",
-		alignItems: "center",
-		justifyContent: "center",
+	buttonContainer: {
+		marginTop: SPACING.md,
 	},
 });
 
-export default LoginForm;
+export default ResetPasswordForm;

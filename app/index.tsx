@@ -3,6 +3,9 @@ import { Button, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "
 import { COLORS, FONTS, RADIUS, SHADOWS, SPACING } from "@constants/theme";
 import { AntDesign } from "@expo/vector-icons";
 import { useTranslation } from "react-i18next";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useAuthContext } from "@contexts/auth";
 
 const lngs = {
 	en: { nativeName: "English" },
@@ -11,7 +14,8 @@ const lngs = {
 
 const Home = () => {
 	// const { t, i18n } = useTranslation();
-
+	const { user } = useAuthContext();
+	// AsyncStorage.removeItem("token");
 	return (
 		<SafeAreaView style={{ flex: 1 }}>
 			<Stack.Screen
@@ -20,12 +24,16 @@ const Home = () => {
 					headerShadowVisible: false,
 					headerBackVisible: false,
 					headerLeft: () => <AntDesign name="home" size={24} color={COLORS.blue900} />,
-					// headerRight: () => <Text>Log</Text>,
 					headerTitle: "home",
 				}}
 			/>
 			<ScrollView style={{ flex: 1, padding: SPACING.lg }}>
-				<Link href="/login">Go to login page</Link>
+				<Link href="/auth/login">Go to login page</Link>
+				<Link href="/auth/register">Go to register page</Link>
+				<Link href="/auth/verify-user">Go to Verification page</Link>
+				<Link href="/(auth)/users/reset-password">Go to Reset Password page</Link>
+
+				{!!user ? <Text>{user.firstName}</Text> : <Text>Please Login</Text>}
 				{/* <View>
 					{(Object.keys(lngs) as Array<keyof typeof lngs>).map((lng) => (
 						<TouchableOpacity
